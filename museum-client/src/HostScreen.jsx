@@ -30,9 +30,8 @@ function HostScreen() {
 
       <h1>{question}</h1>
 
-      {/* Use 192.168.0.51 to ensure the QR code always has the network IP for the phone. */}
-      {/* If your IP ever changes from 192.168.0.51, you will need to update this line! */}
-      <QRCodeCanvas value={`http://192.168.0.51:6194/phone`} size={200} />
+      {/* Dynamically builds the QR URL using the current machine's IP — works on any network! */}
+      <QRCodeCanvas value={`http://${window.location.hostname}:6194/phone`} size={200} />
 
       <div style={{marginTop:40}}>
 
