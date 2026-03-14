@@ -200,7 +200,7 @@ body {
   transform: scale(0.97);
 }
 
-/* ── Card photo ── */
+/* ── Card photo – backgrounds fill the card ── */
 .card-img {
   position: absolute;
   inset: 0;
@@ -208,6 +208,19 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 18px;
+}
+
+/* ── Position/character cards – show the full character at ~70% card height ── */
+.card-img--pos {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 105%;
+  max-width: 105%;
+  object-fit: contain;
+  border-radius: 0;
 }
 
 .card-label {

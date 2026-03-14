@@ -55,9 +55,9 @@ function App() {
       const charImg = new Image()
       charImg.crossOrigin = "anonymous"
       charImg.onload = () => {
-        // Mirror the CSS: bottom-centred, max-height 85%, max-width 60%
-        const maxW = W * 0.60
-        const maxH = H * 0.85
+        // Mirror the CSS: bottom-centred, large character
+        const maxW = W * 0.90
+        const maxH = H * 0.95
         const ratio = Math.min(maxW / charImg.naturalWidth, maxH / charImg.naturalHeight)
         const cw = charImg.naturalWidth  * ratio
         const ch = charImg.naturalHeight * ratio
@@ -156,7 +156,7 @@ function App() {
               role="button"
               aria-label={`Select ${item.label}`}
             >
-              <img src={item.img} alt={item.label} className="card-img" />
+              <img src={item.img} alt={item.label} className="card-img card-img--pos" />
               <span className="card-label">{item.label}</span>
             </div>
           ))}
