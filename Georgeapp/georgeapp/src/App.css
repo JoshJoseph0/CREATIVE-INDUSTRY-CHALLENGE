@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: #fafafa;
   min-height: 100vh;
   overflow-x: hidden;
@@ -20,19 +20,23 @@ body {
 }
 
 
+/* ── Page background with subtle polka dots ── */
 .chapter-page {
-  padding-top: 56px;
+  padding-top: 72px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #fafafa;
+  background-image: radial-gradient(circle, #e0e0e0 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
 }
 
 
+/* ── Card track ── */
 .card-track {
   width: 100%;
-  padding: 32px 24px 0;
+  padding: 28px 20px 0;
   cursor: grab;
   overflow: hidden;
 }
@@ -41,71 +45,108 @@ body {
   cursor: grabbing;
 }
 
-/* ── Main title card ── */
+
+/* ── Main title card — rounder & chunkier ── */
 .title-card {
   width: 100%;
   background: #fff;
-  border-radius: 24px;
-  padding: 40px 28px 48px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  border-radius: 36px;
+  padding: 44px 28px 52px;
+  box-shadow:
+    0 8px 0px rgba(0,0,0,0.08),
+    0 4px 24px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.2s ease;
   position: relative;
-  border-top: 5px solid var(--accent, #D4607A);
+  border: 3px solid var(--accent, #D4607A);
+  border-top: 8px solid var(--accent, #D4607A);
 }
 
 .title-card.dragging {
   transition: none;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 12px 0px rgba(0,0,0,0.10),
+    0 6px 32px rgba(0, 0, 0, 0.12);
+  transform: rotate(-1deg) scale(1.01);
 }
+
+/* Decorative stars on the card */
+.title-card::before,
+.title-card::after {
+  content: '★';
+  position: absolute;
+  font-size: 20px;
+  color: var(--accent, #D4607A);
+  opacity: 0.18;
+  top: 16px;
+  animation: spin 8s linear infinite;
+}
+
+.title-card::before { left: 18px; }
+.title-card::after  { right: 18px; animation-direction: reverse; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 
 /* ── Chapter number badge ── */
 .card-badge {
   display: inline-block;
   background: var(--accent, #D4607A);
   color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 5px 14px;
+  padding: 6px 18px;
   border-radius: 100px;
   margin-bottom: 24px;
-  opacity: 0.9;
+  box-shadow: 0 4px 0px rgba(0,0,0,0.12);
 }
 
+
+/* ── Chapter title ── */
 .chapter-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 40px;
-  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  font-size: 38px;
+  font-weight: 900;
   color: #1a1a1a;
   line-height: 1.15;
   letter-spacing: -0.01em;
   margin-bottom: 0;
 }
 
+
+/* ── Divider ── */
 .title-divider {
-  width: 40px;
-  height: 3px;
+  width: 48px;
+  height: 5px;
   background: var(--accent, #D4607A);
-  border-radius: 2px;
-  margin: 20px 0;
-  opacity: 0.7;
+  border-radius: 100px;
+  margin: 18px 0;
+  opacity: 0.75;
 }
 
+
+/* ── Subtitle ── */
 .chapter-subtitle {
-  font-size: 15px;
-  font-weight: 400;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   color: #777;
-  line-height: 1.7;
-  max-width: 260px;
+  line-height: 1.65;
+  max-width: 270px;
 }
 
-/* ── Swipe hint arrows ── */
+
+/* ── Swipe hint arrows — bigger & bolder ── */
 .swipe-hints {
   position: absolute;
   bottom: 18px;
@@ -113,54 +154,67 @@ body {
   right: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 18px;
   pointer-events: none;
 }
 
 .hint-arrow {
-  font-size: 28px;
+  font-size: 36px;
+  font-weight: 900;
   color: var(--accent, #D4607A);
-  opacity: 0.5;
+  opacity: 0.45;
   line-height: 1;
+  animation: nudge 1.6s ease-in-out infinite;
 }
 
-/* ── Progress dots ── */
+.hint-arrow.right { animation-direction: reverse; }
+
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(-5px); }
+}
+
+
+/* ── Progress dots — bigger & bouncier ── */
 .dots-row {
   display: flex;
-  gap: 8px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 28px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #ddd;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
+  border: 2.5px solid rgba(0,0,0,0.06);
 }
 
 .dot.active {
   background: #D4607A;
-  width: 24px;
-  border-radius: 4px;
+  width: 32px;
+  border-radius: 100px;
+  border-color: transparent;
 }
 
 
+/* ── Sound button — big friendly circle ── */
 .sound-wrapper {
-  margin-top: 28px;
-  padding: 0 0 40px;
+  margin-top: 32px;
+  padding: 0 0 44px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .sound-btn {
-  width: 80px;
-  height: 80px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  border: none;
+  border: 4px solid rgba(255,255,255,0.4);
   background: #D4607A;
   cursor: pointer;
   display: flex;
@@ -169,25 +223,40 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  box-shadow: 0 6px 0px rgba(0,0,0,0.15), 0 6px 24px rgba(212, 96, 122, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+.sound-btn:hover {
+  transform: scale(1.06) translateY(-2px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
 }
 
 .sound-btn.pressed {
   animation: pop 0.25s ease forwards;
+  box-shadow: 0 2px 0px rgba(0,0,0,0.15), 0 2px 12px rgba(212, 96, 122, 0.3);
 }
 
 @keyframes pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(0.75); }
-  100% { transform: scale(1); }
+  0%   { transform: scale(1)    translateY(0); }
+  40%  { transform: scale(0.82) translateY(4px); }
+  100% { transform: scale(1)    translateY(0); }
 }
 
 .sound-icon {
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
 }
 
 .sound-label {
-  font-size: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   color: #aaa;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
