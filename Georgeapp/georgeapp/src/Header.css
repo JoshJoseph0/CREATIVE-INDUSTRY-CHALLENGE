@@ -12,7 +12,7 @@
   z-index: 100;
 }
 
-/* Back button */
+
 .header-back {
   background: none;
   border: none;
@@ -36,7 +36,7 @@
   opacity: 0.5;
 }
 
-/* Title — centred absolutely so it won't shift if back/progress differ in width */
+
 .header-title {
   position: absolute;
   left: 50%;
@@ -50,7 +50,7 @@
   pointer-events: none;
 }
 
-/* Progress % */
+
 .header-progress {
   font-size: 13px;
   font-weight: 600;
