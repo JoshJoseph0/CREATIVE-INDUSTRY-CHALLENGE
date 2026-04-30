@@ -1,22 +1,42 @@
 import './Header.css'
 
-function Header({ title = 'Chapter 1', progress = 13, onBack }) {
+/**
+ * Header
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Props:
+ *   title    {string}   – e.g. "Chapter 2"
+ *   progress {number}   – 0-100, drives the progress bar width
+ *   onBack   {function|null} – called when the back arrow is pressed;
+ *                              pass null to hide the button on the first slide
+ */
+function Header({ title = 'Chapter 1', progress = 20, onBack }) {
   return (
     <header className="header">
       <div className="header-top">
-        <button className="header-back" onClick={onBack} aria-label="Go back">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-          </svg>
-        </button>
+        {/* Back button — hidden on the very first slide */}
+        {onBack ? (
+          <button
+            id="btn-header-back"
+            className="header-back"
+            onClick={onBack}
+            aria-label="Go back"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+            </svg>
+          </button>
+        ) : (
+          <div className="header-spacer" />
+        )}
 
         <span className="header-title">{title}</span>
 
-        {/* Spacer to keep title centred */}
+        {/* Spacer keeps title centred whether back button is visible or not */}
         <div className="header-spacer" />
       </div>
 
-      <div className="header-progress-bar-track">
+      {/* Progress bar */}
+      <div className="header-progress-bar-track" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
         <div
           className="header-progress-bar-fill"
           style={{ width: `${progress}%` }}
