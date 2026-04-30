@@ -1,0 +1,220 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 3458 >>
+stream
+BT
+/F2 22 Tf
+40.00 795.89 Td
+(Georgeapp Repo Summary) Tj
+ET
+BT
+/F1 10 Tf
+40.00 775.89 Td
+(One-page evidence-based overview generated from the repository.) Tj
+ET
+0.96 0.84 0.72 rg
+40.00 721.89 515.28 22 re f
+BT
+/F2 12 Tf
+50.00 736.89 Td
+(What it is) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 707.89 Td
+(Georgeapp is a single-page React + Vite interface for browsing a short set of) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 694.89 Td
+(chapter-style story cards about George.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 676.89 Td
+(The current repo shows a touch-friendly reading experience with progress tracking and a) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 663.89 Td
+(placeholder listen action, not a full content platform.) Tj
+ET
+0.96 0.84 0.72 rg
+40.00 617.89 515.28 22 re f
+BT
+/F2 12 Tf
+50.00 632.89 Td
+(Who it's for) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 603.89 Td
+(Primary persona: a mobile-first reader or listener exploring a chapter-based narrative) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 590.89 Td
+(about George.) Tj
+ET
+0.96 0.84 0.72 rg
+40.00 544.89 515.28 22 re f
+BT
+/F2 12 Tf
+50.00 559.89 Td
+(What it does) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 530.89 Td
+(- Shows four in-memory chapter cards with title, body copy, and accent color.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 512.89 Td
+(- Lets users swipe left/right between cards with pointer events and snap thresholds.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 494.89 Td
+(- Supports back navigation to the previous card from the fixed header.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 476.89 Td
+(- Displays reading progress as a header progress bar tied to the active card.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 458.89 Td
+(- Offers clickable progress dots for direct card selection.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 440.89 Td
+(- Renders a prominent "Tap to listen" button with press/hover animation.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 422.89 Td
+(- Applies mobile-oriented visual styling with fixed header, dotted background, and card) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 409.89 Td
+(motion effects.) Tj
+ET
+0.96 0.84 0.72 rg
+40.00 363.89 515.28 22 re f
+BT
+/F2 12 Tf
+50.00 378.89 Td
+(How it works) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 349.89 Td
+(Browser -> index.html mounts React at #root -> src/main.jsx renders App inside) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 336.89 Td
+(StrictMode.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 318.89 Td
+(App.jsx stores the chapter data locally in a CARDS array and manages active index, drag) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 305.89 Td
+(offset, and dragging state with React hooks.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 287.89 Td
+(Header.jsx receives title, progress, and onBack props from App and renders the fixed top) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 274.89 Td
+(bar.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 256.89 Td
+(App.css and Header.css provide layout, animations, and touch-focused presentation.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 238.89 Td
+(Services/API/persistence/audio playback: Not found in repo.) Tj
+ET
+0.96 0.84 0.72 rg
+40.00 192.89 515.28 22 re f
+BT
+/F2 12 Tf
+50.00 207.89 Td
+(How to run) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 178.89 Td
+(1. Open a terminal in georgeapp/.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 160.89 Td
+(2. Install dependencies: npm install) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 142.89 Td
+(3. Start local dev server: npm run dev) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 124.89 Td
+(4. Open the local Vite URL shown in the terminal.) Tj
+ET
+BT
+/F1 10.5 Tf
+48.00 106.89 Td
+(Build/preview scripts exist in package.json: npm run build and npm run preview.) Tj
+ET
+BT
+/F1 8.5 Tf
+40.00 32.00 Td
+(Repo notes: README is still the default Vite template; no backend, database, auth, or audio implementation is present.) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000257 00000 n 
+0000000327 00000 n 
+0000000402 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3912
+%%EOF

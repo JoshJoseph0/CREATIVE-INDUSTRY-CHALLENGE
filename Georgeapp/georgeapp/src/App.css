@@ -20,9 +20,9 @@ body {
 }
 
 
-/* ── Page background with subtle polka dots ── */
+
 .chapter-page {
-  padding-top: 72px;
+  padding-top: 84px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ body {
 }
 
 
-/* ── Main title card — rounder & chunkier ── */
+
 .title-card {
   width: 100%;
   background: #fff;
@@ -74,7 +74,6 @@ body {
   transform: rotate(-1deg) scale(1.01);
 }
 
-/* Decorative stars on the card */
 .title-card::before,
 .title-card::after {
   content: '★';
@@ -95,7 +94,7 @@ body {
 }
 
 
-/* ── Chapter number badge ── */
+
 .card-badge {
   display: inline-block;
   background: var(--accent, #D4607A);
@@ -112,7 +111,7 @@ body {
 }
 
 
-/* ── Chapter title ── */
+
 .chapter-title {
   font-family: 'Nunito', sans-serif;
   font-size: 38px;
