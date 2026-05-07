@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Header from './Header'
 import { CHAPTERS } from './storyData'
 import './App.css'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helper: flat index across all slides (used for the header progress bar)
-// ─────────────────────────────────────────────────────────────────────────────
+// This part helps us figure out where we are in the whole story
+// so we can update the progress bar at the top.
 const TOTAL_SLIDES = CHAPTERS.reduce((sum, ch) => sum + ch.slides.length, 0)
 
 function getGlobalSlideIndex(chapterIdx, slideIdx) {
@@ -14,9 +13,7 @@ function getGlobalSlideIndex(chapterIdx, slideIdx) {
   return count + slideIdx
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AudioButton
-// ─────────────────────────────────────────────────────────────────────────────
+// This is the big button you tap to play the audio for each slide.
 function AudioButton({ audioSrc, accent }) {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef(null)
@@ -81,9 +78,8 @@ function AudioButton({ audioSrc, accent }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// InteractionSlide — textarea + submit
-// ─────────────────────────────────────────────────────────────────────────────
+// This is the special slide where people can write back to George.
+// It shows a text box and a submit button.
 function InteractionSlide({ slide, accent, chapterLabel }) {
   const [answer, setAnswer] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -122,6 +118,18 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
             onChange={e => setAnswer(e.target.value)}
             rows={5}
             style={{ borderColor: accent }}
+            /* Mobile keyboard UX */
+            autoCapitalize="sentences"
+            autoCorrect="on"
+            autoComplete="off"
+            spellCheck={true}
+            enterKeyHint="done"
+            /* Scroll card into view when keyboard opens on iOS/Android */
+            onFocus={e => {
+              setTimeout(() => {
+                e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }, 350) // delay lets iOS keyboard finish animating
+            }}
           />
           <button
             id={`submit-${slide.id}`}
@@ -143,9 +151,8 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Main App
-// ─────────────────────────────────────────────────────────────────────────────
+// This is the heart of the app. It keeps track of which chapter 
+// and slide you're currently looking at.
 export default function App() {
   const [activeChapter, setActiveChapter] = useState(0) // 0-indexed
   const [activeSlide, setActiveSlide]     = useState(0) // 0-indexed within chapter
@@ -161,7 +168,7 @@ export default function App() {
   // Progress: based on chapter completion (chapter / total chapters)
   const progress = Math.round(((activeChapter + 1) / CHAPTERS.length) * 100)
 
-  // ── Navigation ─────────────────────────────────────────────────────────────
+  // These functions handle moving back and forth between slides.
   const goNext = () => {
     if (!isLastSlideInChapter) {
       setActiveSlide(s => s + 1)
@@ -181,7 +188,7 @@ export default function App() {
     }
   }
 
-  // ── Card animation key (triggers re-mount / fade on navigation) ────────────
+  // This "key" helps React know when to play the slide-in animation.
   const cardKey = `${activeChapter}-${activeSlide}`
 
   return (
@@ -193,7 +200,7 @@ export default function App() {
       />
 
       <main className="chapter-page">
-        {/* ── Main slide card ─────────────────────────────────────────── */}
+        {/* The main white card with all the text */}
         <div className="card-track">
           <div
             key={cardKey}
@@ -216,7 +223,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* ── Slide dots ──────────────────────────────────────────────── */}
+        {/* The little dots below the card */}
         <div className="dots-row" role="tablist" aria-label="Slides">
           {chapter.slides.map((_, i) => (
             <button
@@ -231,10 +238,10 @@ export default function App() {
           ))}
         </div>
 
-        {/* ── Audio button ─────────────────────────────────────────────── */}
+        {/* The big audio button */}
         <AudioButton audioSrc={slide.audio} accent={chapter.accent} />
 
-        {/* ── Prev / Next chapter navigation ──────────────────────────── */}
+        {/* The Previous and Next buttons at the very bottom */}
         <nav className="chapter-nav" aria-label="Chapter navigation">
           <button
             id="btn-prev"

@@ -1,7 +1,8 @@
-
+// Hey! This is where all the story content lives.
+// You can easily swap out text, add audio links, or change colors here.
 
 export const CHAPTERS = [
-  // ── Chapter 1 ─────────────────────────────────────────────────────────────
+  // --- Chapter 1: The basics about George ---
   {
     id: 1,
     label: 'Chapter 1',
@@ -35,7 +36,7 @@ export const CHAPTERS = [
     ],
   },
 
-  // ── Chapter 2 ─────────────────────────────────────────────────────────────
+  // --- Chapter 2: The London/Sickert connection ---
   {
     id: 2,
     label: 'Chapter 2',
@@ -71,7 +72,7 @@ export const CHAPTERS = [
     ],
   },
 
-  // ── Chapter 3 ─────────────────────────────────────────────────────────────
+  // --- Chapter 3: George goes to art school ---
   {
     id: 3,
     label: 'Chapter 3',
@@ -107,7 +108,7 @@ export const CHAPTERS = [
     ],
   },
 
-  // ── Chapter 4 ─────────────────────────────────────────────────────────────
+  // --- Chapter 4: George as a tool for artists ---
   {
     id: 4,
     label: 'Chapter 4',
@@ -135,7 +136,7 @@ export const CHAPTERS = [
     ],
   },
 
-  // ── Chapter 5 ─────────────────────────────────────────────────────────────
+  // --- Chapter 5: Wrapping up the story ---
   {
     id: 5,
     label: 'Chapter 5',
