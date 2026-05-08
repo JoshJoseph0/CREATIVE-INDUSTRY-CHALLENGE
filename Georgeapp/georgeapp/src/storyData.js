@@ -1,35 +1,26 @@
 
-
 export const CHAPTERS = [
   // ── Chapter 1 ─────────────────────────────────────────────────────────────
   {
     id: 1,
     label: 'Chapter 1',
-    title: 'Who is George?',
-    accent: '#D4607A',
+    title: 'The Life of George',
+    accent: '#F7B731',
     slides: [
       {
         id: 'ch1-s1',
-        title: 'Who is George?',
+        title: "Hi there, my name is George.",
         body:
-          'George is a life-sized mannequin who has been part of Walter Sickert\'s world for over a century. He\'s watched artists work, travelled across continents, and somehow survived it all — though not entirely in one piece.',
-        audio: null, // e.g. "/audio/ch1_slide1.m4a"
+          "Hi there, my name is George. Well, that's what the museum likes to call me. I'm not really sure who made me, but I've been around for a hundred years, so I've seen a lot of amazing things.",
+        audio: '/audio/ch1-s1.wav',
         isInteraction: false,
       },
       {
         id: 'ch1-s2',
-        title: 'A Life of Adventures',
+        title: 'A Bit Old Now',
         body:
-          'From the smoky studios of London to sunlit European galleries, George has been there for it all. He\'s been packed into trunks, propped against walls, and posed under hot studio lights more times than anyone can count.',
-        audio: null,
-        isInteraction: false,
-      },
-      {
-        id: 'ch1-s3',
-        title: 'Loss of Fingers & Wobbly Parts',
-        body:
-          'Time has taken its toll. George\'s fingers have gone missing over the years, and a few of his joints are decidedly wobbly. But that only adds to his character — every crack and missing piece tells a story.',
-        audio: null,
+          "I might look a bit old now and I've lost a few fingers and the rest are quite wobbly, but that's just because I've had lots of adventures. Despite how old I'm getting, it's still lovely being here for you all today.",
+        audio: '/audio/ch1-s2.wav',
         isInteraction: false,
       },
     ],
@@ -44,29 +35,11 @@ export const CHAPTERS = [
     slides: [
       {
         id: 'ch2-s1',
-        title: 'Meeting Walter',
+        title: 'Meeting Walter Sickert',
         body:
-          'Walter Sickert was one of Britain\'s most important painters — unconventional, brilliant, and always searching for the perfect subject. When he found George, he knew immediately that this was the model he\'d been looking for.',
-        audio: null,
+          "I spent most of my younger years with a kind man called Walter Sickert and he took really good care of me. I even got to help him when he was making some of his paintings. How cool is that? It does make me feel a little shy, but also very proud of what I've helped to accomplish.",
+        audio: '/audio/ch2-s1.wav',
         isInteraction: false,
-      },
-      {
-        id: 'ch2-s2',
-        title: 'Helping with the Paintings',
-        body:
-          'George held his poses patiently while Sickert worked. He never complained, never moved, never needed a tea break. For a painter obsessed with the human figure, George was the ideal collaborator.',
-        audio: null,
-        isInteraction: false,
-      },
-      {
-        id: 'ch2-s3',
-        title: 'Answer George',
-        body: '',
-        audio: null,
-        isInteraction: true,
-        interactionPrompt:
-          'Imagine you are Walter Sickert. You\'ve just met George for the first time. What do you say to him?',
-        interactionPlaceholder: 'Write your answer here…',
       },
     ],
   },
@@ -82,27 +55,9 @@ export const CHAPTERS = [
         id: 'ch3-s1',
         title: 'Education at Bath Spa',
         body:
-          'George eventually found his way to Corsham Court — home of Bath Spa University\'s art school. Here, new generations of students discovered him, each seeing something different in his worn and patient face.',
-        audio: null,
+          "When he passed, he sent me to the Bath School of Art. I was looking forward to helping people learn, although I didn't get a degree myself. And after a few trips to Europe, I ended up in the Bath Spa University collection.",
+        audio: '/audio/ch3-s1.wav',
         isInteraction: false,
-      },
-      {
-        id: 'ch3-s2',
-        title: 'European Trips',
-        body:
-          'George accompanied students on trips across Europe — sketchbooks open, eyes wide. He observed masterpieces in Florence, felt the cold air of Parisian galleries, and stood very still while everyone around him was anything but.',
-        audio: null,
-        isInteraction: false,
-      },
-      {
-        id: 'ch3-s3',
-        title: 'Answer George',
-        body: '',
-        audio: null,
-        isInteraction: true,
-        interactionPrompt:
-          'You\'re an art student on a trip to Europe with George. Where do you take him, and what do you ask him to pose in front of?',
-        interactionPlaceholder: 'Write your answer here…',
       },
     ],
   },
@@ -116,21 +71,11 @@ export const CHAPTERS = [
     slides: [
       {
         id: 'ch4-s1',
-        title: 'Believability & Scale',
+        title: 'Lazarus Paintings',
         body:
-          'George\'s greatest gift to any artist is his scale. Life-size and uncannily human, he helps painters understand proportion, shadow, and the way light falls on a figure — things no photograph can fully teach.',
-        audio: null,
+          "I used to be a lot more flexible and helpful for Walter when he was working on the Lazarus paintings, especially since I could hold my poses forever.",
+        audio: '/audio/ch4-s1.wav',
         isInteraction: false,
-      },
-      {
-        id: 'ch4-s2',
-        title: 'Answer George',
-        body: '',
-        audio: null,
-        isInteraction: true,
-        interactionPrompt:
-          'George has posed for the Lazarus paintings — rising from the dead, again and again. If you were the artist, what scene would you ask George to pose for?',
-        interactionPlaceholder: 'Write your answer here…',
       },
     ],
   },
@@ -146,17 +91,76 @@ export const CHAPTERS = [
         id: 'ch5-s1',
         title: 'The Thrill of an Audience',
         body:
-          'After all these years, George still loves an audience. There\'s something in the way visitors pause when they first see him — a flicker of uncertainty, then recognition. Is he real? Is he art? Is he both?',
-        audio: null,
+          "Thank you everyone for letting me chat a little bit about my memories. I really could get used to audiences like this. It's rather thrilling.",
+        audio: '/audio/ch5-s1.wav',
         isInteraction: false,
       },
+    ],
+  },
+
+  // ── Questions ─────────────────────────────────────────────────────────────
+  {
+    id: 6,
+    label: 'Questions',
+    title: 'Test Your Knowledge',
+    accent: '#E05C5C',
+    slides: [
       {
-        id: 'ch5-s2',
-        title: 'Your Colouring Invitation',
+        id: 'q-s1',
+        title: 'Question One',
+        body: '',
+        audio: '/audio/q1.wav',
+        isInteraction: true,
+        interactionPrompt:
+          'How do you think I lost these fingers?',
+        interactionPlaceholder: 'Write your answer here…',
+      },
+      {
+        id: 'q-s2',
+        title: 'Question Two',
+        body: '',
+        audio: '/audio/q2.wav',
+        isInteraction: true,
+        interactionPrompt:
+          'How do you think I got this lipstick on my face? The truth is, I have no idea how this ended up here, and neither does the university. I\'d bet it was one of those mischievous students at the Bath School of Art!',
+        interactionPlaceholder: 'Write your answer here…',
+      },
+      {
+        id: 'q-s3',
+        title: 'Question Three',
+        body: '',
+        audio: '/audio/q3.wav',
+        isInteraction: true,
+        interactionPrompt:
+          'What inspired Walter to use mannequins like myself as inspiration for his artwork?',
+        interactionPlaceholder: 'Write your answer here…',
+      },
+      {
+        id: 'q-s4',
+        title: "Time's Up!",
         body:
-          'Before you go, George has one last request. Head to the colouring station and give him a new look — choose his colours, his outfit, his expression. Make him yours. After all, every great artist leaves their mark.',
-        audio: null,
+          "His use of wooden mannequins came from a desire to create believability and scale in his work.",
+        audio: '/audio/q3-answer.wav',
         isInteraction: false,
+      },
+    ],
+  },
+
+  // ── Colouring Activity ────────────────────────────────────────────────────
+  {
+    id: 7,
+    label: 'Activity',
+    title: 'Colour Me In!',
+    accent: '#4CAF50',
+    slides: [
+      {
+        id: 'activity-s1',
+        title: 'Your Turn!',
+        body:
+          "Before you go, I've prepared a colouring activity for all the young historians in the audience today. Once again, thank you all very much for coming, and have a lovely day!",
+        audio: '/audio/ch5-s2.wav',
+        isInteraction: false,
+        isColourActivity: true,
       },
     ],
   },

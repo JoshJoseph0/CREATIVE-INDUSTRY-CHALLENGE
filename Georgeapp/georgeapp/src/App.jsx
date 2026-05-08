@@ -2,25 +2,21 @@ import { useState, useRef, useEffect } from 'react'
 import Header from './Header'
 import { CHAPTERS } from './storyData'
 import './App.css'
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper: flat index across all slides (used for the header progress bar)
 // ─────────────────────────────────────────────────────────────────────────────
 const TOTAL_SLIDES = CHAPTERS.reduce((sum, ch) => sum + ch.slides.length, 0)
-
 function getGlobalSlideIndex(chapterIdx, slideIdx) {
   let count = 0
   for (let i = 0; i < chapterIdx; i++) count += CHAPTERS[i].slides.length
   return count + slideIdx
 }
-
 // ─────────────────────────────────────────────────────────────────────────────
 // AudioButton
 // ─────────────────────────────────────────────────────────────────────────────
 function AudioButton({ audioSrc, accent }) {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef(null)
-
   // Reset when audio source changes (new slide)
   useEffect(() => {
     if (audioRef.current) {
@@ -29,7 +25,6 @@ function AudioButton({ audioSrc, accent }) {
       setPlaying(false)
     }
   }, [audioSrc])
-
   const toggle = () => {
     if (!audioSrc) return
     const audio = audioRef.current
@@ -42,9 +37,7 @@ function AudioButton({ audioSrc, accent }) {
       setPlaying(true)
     }
   }
-
   const onEnded = () => setPlaying(false)
-
   return (
     <div className="sound-wrapper">
       {audioSrc && <audio ref={audioRef} src={audioSrc} onEnded={onEnded} />}
@@ -74,29 +67,22 @@ function AudioButton({ audioSrc, accent }) {
           </svg>
         )}
       </button>
-      <span className="sound-label">
-        {!audioSrc ? 'No audio for this slide' : playing ? 'Tap to pause' : 'Tap to listen'}
-      </span>
     </div>
   )
 }
-
 // ─────────────────────────────────────────────────────────────────────────────
 // InteractionSlide — textarea + submit
 // ─────────────────────────────────────────────────────────────────────────────
 function InteractionSlide({ slide, accent, chapterLabel }) {
   const [answer, setAnswer] = useState('')
   const [submitted, setSubmitted] = useState(false)
-
   // Reset when navigating to a different interaction slide
   useEffect(() => {
     setAnswer('')
     setSubmitted(false)
   }, [slide.id])
-
   const handleSubmit = () => {
     if (!answer.trim()) return
-
     console.log('ANSWER SUBMITTED', {
       chapter: chapterLabel,
       slideId: slide.id,
@@ -104,14 +90,11 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
       answer: answer.trim(),
       submittedAt: new Date().toISOString(),
     })
-
     setSubmitted(true)
   }
-
   return (
     <div className="interaction-slide">
       <p className="interaction-prompt">{slide.interactionPrompt}</p>
-
       {!submitted ? (
         <>
           <textarea
@@ -142,14 +125,44 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
     </div>
   )
 }
-
+// ─────────────────────────────────────────────────────────────────────────────
+// ColourActivity — embedded iframe of the colouring app
+// ─────────────────────────────────────────────────────────────────────────────
+function ColourActivity({ accent }) {
+  return (
+    <div className="colour-activity">
+      <p className="colour-activity-intro">
+        Pick a pose for George and a background, then download your masterpiece!
+      </p>
+      <div className="colour-activity-frame-wrapper">
+        <iframe
+          src="https://joshjoseph0.github.io/CREATIVE-INDUSTRY-CHALLENGE/"
+          title="Colour Me In – George"
+          className="colour-activity-frame"
+          allow="downloads"
+        />
+      </div>
+      <p className="colour-activity-fallback">
+        If the activity does not load,{' '}
+        <a
+          href="https://joshjoseph0.github.io/CREATIVE-INDUSTRY-CHALLENGE/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: accent }}
+        >
+          open it in a new tab
+        </a>
+        .
+      </p>
+    </div>
+  )
+}
 // ─────────────────────────────────────────────────────────────────────────────
 // Main App
 // ─────────────────────────────────────────────────────────────────────────────
 export default function App() {
   const [activeChapter, setActiveChapter] = useState(0) // 0-indexed
   const [activeSlide, setActiveSlide]     = useState(0) // 0-indexed within chapter
-
   // Derived data
   const chapter  = CHAPTERS[activeChapter]
   const slide    = chapter.slides[activeSlide]
@@ -157,10 +170,8 @@ export default function App() {
   const isLastSlideInChapter = activeSlide === chapter.slides.length - 1
   const isLastChapter        = activeChapter === CHAPTERS.length - 1
   const isLast   = isLastSlideInChapter && isLastChapter
-
   // Progress: based on chapter completion (chapter / total chapters)
   const progress = Math.round(((activeChapter + 1) / CHAPTERS.length) * 100)
-
   // ── Navigation ─────────────────────────────────────────────────────────────
   const goNext = () => {
     if (!isLastSlideInChapter) {
@@ -170,7 +181,6 @@ export default function App() {
       setActiveSlide(0)
     }
   }
-
   const goPrev = () => {
     if (activeSlide > 0) {
       setActiveSlide(s => s - 1)
@@ -180,10 +190,8 @@ export default function App() {
       setActiveSlide(prevChapter.slides.length - 1)
     }
   }
-
   // ── Card animation key (triggers re-mount / fade on navigation) ────────────
   const cardKey = `${activeChapter}-${activeSlide}`
-
   return (
     <div className="app">
       <Header
@@ -191,7 +199,6 @@ export default function App() {
         progress={progress}
         onBack={!isFirst ? goPrev : null}
       />
-
       <main className="chapter-page">
         {/* ── Main slide card ─────────────────────────────────────────── */}
         <div className="card-track">
@@ -203,8 +210,9 @@ export default function App() {
             <span className="card-badge">{chapter.label}</span>
             <h1 className="chapter-title">{slide.title}</h1>
             <div className="title-divider" />
-
-            {slide.isInteraction ? (
+            {slide.isColourActivity ? (
+              <ColourActivity accent={chapter.accent} />
+            ) : slide.isInteraction ? (
               <InteractionSlide
                 slide={slide}
                 accent={chapter.accent}
@@ -215,7 +223,6 @@ export default function App() {
             )}
           </div>
         </div>
-
         {/* ── Slide dots ──────────────────────────────────────────────── */}
         <div className="dots-row" role="tablist" aria-label="Slides">
           {chapter.slides.map((_, i) => (
@@ -230,10 +237,10 @@ export default function App() {
             />
           ))}
         </div>
-
-        {/* ── Audio button ─────────────────────────────────────────────── */}
-        <AudioButton audioSrc={slide.audio} accent={chapter.accent} />
-
+        {/* ── Audio button (hidden on colour activity slide) ───────────── */}
+        {!slide.isColourActivity && (
+          <AudioButton audioSrc={slide.audio} accent={chapter.accent} />
+        )}
         {/* ── Prev / Next chapter navigation ──────────────────────────── */}
         <nav className="chapter-nav" aria-label="Chapter navigation">
           <button
@@ -248,7 +255,6 @@ export default function App() {
             </svg>
             Previous
           </button>
-
           <button
             id="btn-next"
             className="nav-btn nav-btn--next"
