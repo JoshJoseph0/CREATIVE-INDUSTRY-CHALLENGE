@@ -1,14 +1,7 @@
 import './Header.css'
 
-/**
- * Header
- * ─────────────────────────────────────────────────────────────────────────────
- * Props:
- *   title    {string}   – e.g. "Chapter 2"
- *   progress {number}   – 0-100, drives the progress bar width
- *   onBack   {function|null} – called when the back arrow is pressed;
- *                              pass null to hide the button on the first slide
- */
+// This is the golden header at the top of the screen.
+// It shows which chapter you're in and how far along you are.
 function Header({ title = 'Chapter 1', progress = 20, onBack }) {
   return (
     <header className="header">

@@ -1,32 +1,55 @@
-/* ─────────────────────────────────────────────────────────────────────────────
-   App.css — George Storybook UI
-   ───────────────────────────────────────────────────────────────────────────── */
+/* George Storybook UI - Mobile Optimized Styles */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-* {
+/* Clean up margins and padding for everything */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Remove blue flash on Android Chrome tap */
   -webkit-tap-highlight-color: transparent;
+}
+
+/*
+  Do NOT set user-select:none globally — it blocks text selection in
+  textareas on some Android versions. Apply it only where needed.
+*/
+
+/* Basic page setup */
+html {
+  /* Prevent font scaling when rotating on iOS */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   font-family: 'Nunito', sans-serif;
   background: #fafafa;
-  min-height: 100vh;
+  /* dvh = dynamic viewport height — avoids iOS Safari address-bar gap */
+  min-height: 100dvh;
+  min-height: 100vh; /* fallback for older browsers */
   overflow-x: hidden;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
+/* The main container for the app */
 .app {
-  width: 100vw;
+  width: 100%;
+  min-height: 100dvh;
   min-height: 100vh;
 }
 
-/* ── Page wrapper ──────────────────────────────────────────────────────────── */
+/* The wrapper for each page slide */
 .chapter-page {
-  padding-top: 84px;
-  padding-bottom: 40px;
+  /* Header is ~74px tall; add safe-area for notch phones */
+  padding-top: calc(74px + env(safe-area-inset-top));
+  /* Nav bar at bottom + safe-area for iPhone home indicator */
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  min-height: 100dvh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,28 +59,38 @@ body {
   background-size: 28px 28px;
 }
 
-/* ── Card track ────────────────────────────────────────────────────────────── */
+/* Container for the card track */
 .card-track {
   width: 100%;
-  padding: 28px 20px 0;
+  padding: 20px 16px 0;
 }
 
-/* ── Slide-in animation ────────────────────────────────────────────────────── */
+/* That smooth slide-in effect when you change pages */
 @keyframes slideInUp {
   from { opacity: 0; transform: translateY(18px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
 .slide-in {
-  animation: slideInUp 0.35s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+  animation: slideInUp 0.32s cubic-bezier(0.34, 1.3, 0.64, 1) both;
 }
 
-/* ── Main card ─────────────────────────────────────────────────────────────── */
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .slide-in,
+  .sound-btn,
+  .title-card::before,
+  .title-card::after {
+    animation: none !important;
+  }
+}
+
+/* The big white card where the story text lives */
 .title-card {
   width: 100%;
   background: #fff;
-  border-radius: 36px;
-  padding: 44px 28px 52px;
+  border-radius: 28px;
+  padding: 36px 22px 44px;
   box-shadow:
     0 8px 0px rgba(0, 0, 0, 0.08),
     0 4px 24px rgba(0, 0, 0, 0.07);
@@ -68,6 +101,16 @@ body {
   position: relative;
   border: 3px solid var(--accent, #D4607A);
   border-top: 8px solid var(--accent, #D4607A);
+  /* Prevent accidental text selection while scrolling */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection inside paragraphs */
+.title-card p,
+.title-card .interaction-prompt {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Decorative corner stars */
@@ -75,129 +118,168 @@ body {
 .title-card::after {
   content: '★';
   position: absolute;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--accent, #D4607A);
   opacity: 0.18;
-  top: 16px;
+  top: 14px;
   animation: spin 8s linear infinite;
 }
-.title-card::before { left: 18px; }
-.title-card::after  { right: 18px; animation-direction: reverse; }
+.title-card::before { left: 16px; }
+.title-card::after  { right: 16px; animation-direction: reverse; }
 
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 
-/* ── Chapter badge pill ────────────────────────────────────────────────────── */
+/* The little "Chapter X" pill at the top of the card */
 .card-badge {
   display: inline-block;
   background: var(--accent, #D4607A);
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 6px 18px;
+  padding: 5px 16px;
   border-radius: 100px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   box-shadow: 0 4px 0px rgba(0, 0, 0, 0.12);
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* ── Slide title ───────────────────────────────────────────────────────────── */
+/* The main heading for each slide */
 .chapter-title {
-  font-size: 32px;
+  /* 28px base — scales up at wider viewports */
+  font-size: clamp(24px, 7vw, 36px);
   font-weight: 900;
   color: #1a1a1a;
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin-bottom: 0;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* ── Divider bar ───────────────────────────────────────────────────────────── */
+/* The small colored line under the title */
 .title-divider {
-  width: 48px;
-  height: 5px;
+  width: 44px;
+  height: 4px;
   background: var(--accent, #D4607A);
   border-radius: 100px;
-  margin: 18px 0;
+  margin: 14px 0;
   opacity: 0.75;
+  flex-shrink: 0;
 }
 
-/* ── Body text ─────────────────────────────────────────────────────────────── */
+/* The paragraph text for the story */
 .chapter-subtitle {
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   font-weight: 600;
   color: #666;
   line-height: 1.7;
-  max-width: 300px;
-  user-select: text;
+  max-width: 100%;
   -webkit-user-select: text;
+  user-select: text;
 }
 
-/* ── Slide dots ────────────────────────────────────────────────────────────── */
+/* The navigation dots at the bottom of the card */
 .dots-row {
   display: flex;
-  gap: 10px;
-  margin-top: 28px;
+  gap: 8px;
+  margin-top: 24px;
+  /* Ensure the whole row has enough tap height */
+  padding: 10px 0;
 }
 
 .dot {
+  /* Visual size stays small, but hit area is 44×44 minimum via padding */
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: #ddd;
   border: 2.5px solid rgba(0, 0, 0, 0.06);
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
   padding: 0;
+  /* Expand tap target without changing layout */
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  /* iOS: remove default button appearance */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Invisible larger tap zone */
+.dot::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
 }
 
 .dot.active {
-  width: 32px;
+  width: 28px;
   border-radius: 100px;
   border-color: transparent;
 }
 
-/* ── Audio button ──────────────────────────────────────────────────────────── */
+/* The big "Tap to Listen" button */
 .sound-wrapper {
-  margin-top: 32px;
+  margin-top: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .sound-btn {
-  width: 96px;
-  height: 96px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   border: 4px solid rgba(255, 255, 255, 0.4);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Critical: stops iOS treating this as a scroll gesture */
   touch-action: manipulation;
+  /* Prevent long-press context menu on mobile */
+  -webkit-user-select: none;
+  user-select: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   animation: float 3s ease-in-out infinite;
+  /* Remove iOS default button styling */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .sound-btn.no-audio {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: default;
+  pointer-events: none;
   animation: none;
 }
 
-.sound-btn:hover:not(.no-audio) {
-  transform: scale(1.06) translateY(-2px);
+/* On touch devices we use :active instead of :hover */
+.sound-btn:active:not(.no-audio) {
+  transform: scale(0.93);
+}
+
+/* Keep hover for desktop/pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  .sound-btn:hover:not(.no-audio) {
+    transform: scale(1.06) translateY(-2px);
+  }
 }
 
 .sound-btn.playing {
-  animation: pulse 1s ease-in-out infinite;
+  animation: pulse 1.2s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-6px); }
 }
 
@@ -207,7 +289,7 @@ body {
 }
 
 .sound-btn.pressed {
-  animation: pop 0.25s ease forwards;
+  animation: pop 0.2s ease forwards;
 }
 
 @keyframes pop {
@@ -217,62 +299,73 @@ body {
 }
 
 .sound-icon {
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
+  /* Prevent icon from being dragged on iOS */
+  pointer-events: none;
 }
 
 .sound-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: #aaa;
   letter-spacing: 0.04em;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* ── Interaction slide ─────────────────────────────────────────────────────── */
+/* Styles for the question-and-answer box */
 .interaction-slide {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .interaction-prompt {
-  font-size: 15px;
+  font-size: clamp(14px, 3.8vw, 15px);
   font-weight: 700;
   color: #444;
-  line-height: 1.6;
+  line-height: 1.65;
   text-align: center;
-  max-width: 300px;
-  user-select: text;
+  max-width: 100%;
   -webkit-user-select: text;
+  user-select: text;
 }
 
 .interaction-textarea {
   width: 100%;
-  max-width: 340px;
-  border-radius: 18px;
+  /* IMPORTANT: iOS Safari zooms in on inputs < 16px — must stay at 16px */
+  font-size: 16px;
+  border-radius: 16px;
   border: 2.5px solid #ddd;
-  padding: 14px 18px;
+  padding: 14px 16px;
   font-family: 'Nunito', sans-serif;
-  font-size: 15px;
   font-weight: 600;
   color: #333;
-  background: #fafafa;
-  resize: vertical;
+  background: #f5f5f5;
+  /* Disable resize handle — it causes layout issues on mobile */
+  resize: none;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  user-select: text;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   -webkit-user-select: text;
+  user-select: text;
+  /* Smooth scrolling within the textarea on iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Remove iOS default textarea appearance */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .interaction-textarea:focus {
   background: #fff;
-  box-shadow: 0 0 0 3px var(--accent, #D4607A22);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #D4607A) 20%, transparent);
 }
 
 .interaction-submit {
-  padding: 14px 36px;
+  min-height: 48px; /* Apple HIG minimum touch target */
+  padding: 13px 36px;
   border-radius: 100px;
   border: none;
   color: #fff;
@@ -280,35 +373,48 @@ body {
   font-size: 15px;
   font-weight: 800;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
   transition: transform 0.15s ease, opacity 0.2s ease;
   letter-spacing: 0.03em;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.interaction-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
+.interaction-submit:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interaction-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
 }
 
 .interaction-submit:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: default;
 }
 
 /* Submitted confirmation */
 .interaction-thanks {
   border: 2.5px solid;
-  border-radius: 18px;
-  padding: 20px 28px;
+  border-radius: 16px;
+  padding: 20px 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   background: #fafafa;
-  animation: slideInUp 0.35s ease both;
+  animation: slideInUp 0.32s ease both;
+  width: 100%;
 }
 
 .thanks-emoji {
-  font-size: 36px;
+  font-size: 34px;
+  line-height: 1;
 }
 
 .interaction-thanks p {
@@ -317,66 +423,95 @@ body {
   color: #555;
 }
 
-/* ── Bottom chapter nav buttons ────────────────────────────────────────────── */
+/* The Previous/Next navigation at the bottom */
 .chapter-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 28px 20px 0;
-  gap: 12px;
+  padding: 24px 16px 0;
+  gap: 10px;
 }
 
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 24px;
+  justify-content: center;
+  gap: 6px;
+  /* Minimum 48px height for Apple/Google touch target guidelines */
+  min-height: 48px;
+  padding: 12px 20px;
   border-radius: 100px;
   border: none;
   font-family: 'Nunito', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
   transition: transform 0.15s ease, opacity 0.2s ease;
   letter-spacing: 0.02em;
-  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Prevent text wrapping on narrow screens */
+  white-space: nowrap;
 }
 
-.nav-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
+.nav-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+  .nav-btn--prev:hover:not(:disabled) {
+    background: #e6e6e6;
+  }
 }
 
 .nav-btn:disabled {
-  opacity: 0.3;
+  opacity: 0.28;
   cursor: default;
+  pointer-events: none;
 }
 
 .nav-btn--prev {
-  background: #f0f0f0;
+  background: #ebebeb;
   color: #555;
-}
-
-.nav-btn--prev:hover:not(:disabled) {
-  background: #e6e6e6;
+  flex-shrink: 0;
 }
 
 .nav-btn--next {
   color: #fff;
   flex: 1;
-  justify-content: center;
+  /* Cap width so label doesn't stretch too far on large screens */
+  max-width: 280px;
 }
 
-/* ── Responsive tweaks ─────────────────────────────────────────────────────── */
-@media (min-width: 480px) {
-  .card-track { padding: 28px 32px 0; }
-  .chapter-page { padding-bottom: 60px; }
-  .chapter-title { font-size: 38px; }
-  .chapter-nav { padding: 28px 32px 0; }
+/* Adjustments for bigger screens (tablets, etc) */
+
+/* Slightly larger phablet screens */
+@media (min-width: 400px) {
+  .card-track   { padding: 24px 20px 0; }
+  .chapter-nav  { padding: 24px 20px 0; }
+  .title-card   { padding: 40px 28px 48px; border-radius: 32px; }
 }
 
+/* Small tablets / large phones in landscape */
+@media (min-width: 600px) {
+  .card-track, .chapter-nav {
+    max-width: 520px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .chapter-page { padding-top: calc(88px + env(safe-area-inset-top)); }
+}
+
+/* Tablets */
 @media (min-width: 768px) {
-  .chapter-page { padding-top: 96px; }
+  .chapter-page { padding-top: calc(96px + env(safe-area-inset-top)); }
 
   .card-track,
   .chapter-nav {
@@ -386,7 +521,23 @@ body {
     width: 100%;
   }
 
-  .chapter-title { font-size: 42px; }
+  .title-card { padding: 52px 40px 60px; }
+  .nav-btn    { font-size: 15px; padding: 14px 28px; }
+}
+
+/* Landscape orientation on phones — reduce vertical padding */
+@media (max-height: 500px) and (orientation: landscape) {
+  .chapter-page { padding-top: calc(56px + env(safe-area-inset-top)); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .title-card   { padding: 24px 22px 28px; }
+  .sound-wrapper { margin-top: 16px; }
+  .sound-btn    { width: 68px; height: 68px; }
+  .chapter-nav  { padding-top: 16px; }
+}
+
+/* Extra accessibility settings */
+@media (prefers-contrast: high) {
+  .title-card { border-width: 4px; border-top-width: 10px; }
+  .dot { border-width: 3px; }
 }
 
 /* ── Colour Activity Slide ─────────────────────────────────────────────────── */

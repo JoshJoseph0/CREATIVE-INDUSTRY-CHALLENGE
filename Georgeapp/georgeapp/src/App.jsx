@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Header from './Header'
 import { CHAPTERS } from './storyData'
 import './App.css'
@@ -105,6 +105,18 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
             onChange={e => setAnswer(e.target.value)}
             rows={5}
             style={{ borderColor: accent }}
+            /* Mobile keyboard UX */
+            autoCapitalize="sentences"
+            autoCorrect="on"
+            autoComplete="off"
+            spellCheck={true}
+            enterKeyHint="done"
+            /* Scroll card into view when keyboard opens on iOS/Android */
+            onFocus={e => {
+              setTimeout(() => {
+                e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }, 350) // delay lets iOS keyboard finish animating
+            }}
           />
           <button
             id={`submit-${slide.id}`}
@@ -200,7 +212,7 @@ export default function App() {
         onBack={!isFirst ? goPrev : null}
       />
       <main className="chapter-page">
-        {/* ── Main slide card ─────────────────────────────────────────── */}
+        {/* The main white card with all the text */}
         <div className="card-track">
           <div
             key={cardKey}
