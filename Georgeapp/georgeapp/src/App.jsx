@@ -138,34 +138,43 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
   )
 }
 // ─────────────────────────────────────────────────────────────────────────────
-// ColourActivity — embedded iframe of the colouring app
+// ColourActivity — fullscreen colouring overlay (covers the whole screen)
 // ─────────────────────────────────────────────────────────────────────────────
-function ColourActivity({ accent }) {
+function ColourActivity({ accent, onBack }) {
   return (
-    <div className="colour-activity">
-      <p className="colour-activity-intro">
-        Pick a pose for George and a background, then download your masterpiece!
-      </p>
-      <div className="colour-activity-frame-wrapper">
-        <iframe
-          src="https://joshjoseph0.github.io/CREATIVE-INDUSTRY-CHALLENGE/"
-          title="Colour Me In – George"
-          className="colour-activity-frame"
-          allow="downloads"
-        />
-      </div>
-      <p className="colour-activity-fallback">
-        If the activity does not load,{' '}
+    <div className="colour-fullscreen">
+      {/* Top bar with back button */}
+      <div className="colour-topbar" style={{ background: accent }}>
+        <button
+          className="colour-back-btn"
+          onClick={onBack}
+          aria-label="Back to story"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
+          Back to Story
+        </button>
+        <span className="colour-topbar-title">🎨 Colour Me In!</span>
         <a
-          href="https://joshjoseph0.github.io/CREATIVE-INDUSTRY-CHALLENGE/"
+          href="/colour-app/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: accent }}
+          className="colour-open-btn"
+          aria-label="Open in new tab"
         >
-          open it in a new tab
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18" height="18">
+            <path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+          </svg>
         </a>
-        .
-      </p>
+      </div>
+      {/* Fullscreen iframe */}
+      <iframe
+        src="/colour-app/"
+        title="Colour Me In – George"
+        className="colour-fullscreen-frame"
+        allow="downloads"
+      />
     </div>
   )
 }
@@ -206,84 +215,90 @@ export default function App() {
   const cardKey = `${activeChapter}-${activeSlide}`
   return (
     <div className="app">
-      <Header
-        title={chapter.label}
-        progress={progress}
-        onBack={!isFirst ? goPrev : null}
-      />
-      <main className="chapter-page">
-        {/* The main white card with all the text */}
-        <div className="card-track">
-          <div
-            key={cardKey}
-            className="title-card slide-in"
-            style={{ '--accent': chapter.accent }}
-          >
-            <span className="card-badge">{chapter.label}</span>
-            <h1 className="chapter-title">{slide.title}</h1>
-            <div className="title-divider" />
-            {slide.isColourActivity ? (
-              <ColourActivity accent={chapter.accent} />
-            ) : slide.isInteraction ? (
-              <InteractionSlide
-                slide={slide}
-                accent={chapter.accent}
-                chapterLabel={chapter.label}
-              />
-            ) : (
-              <p className="chapter-subtitle">{slide.body}</p>
-            )}
-          </div>
-        </div>
-        {/* ── Slide dots ──────────────────────────────────────────────── */}
-        <div className="dots-row" role="tablist" aria-label="Slides">
-          {chapter.slides.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === activeSlide}
-              aria-label={`Slide ${i + 1}`}
-              className={`dot ${i === activeSlide ? 'active' : ''}`}
-              style={i === activeSlide ? { background: chapter.accent } : {}}
-              onClick={() => setActiveSlide(i)}
-            />
-          ))}
-        </div>
-        {/* ── Audio button (hidden on colour activity slide) ───────────── */}
-        {!slide.isColourActivity && (
-          <AudioButton audioSrc={slide.audio} accent={chapter.accent} />
-        )}
-        {/* ── Prev / Next chapter navigation ──────────────────────────── */}
-        <nav className="chapter-nav" aria-label="Chapter navigation">
-          <button
-            id="btn-prev"
-            className="nav-btn nav-btn--prev"
-            onClick={goPrev}
-            disabled={isFirst}
-            aria-label="Previous"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-            </svg>
-            Previous
-          </button>
-          <button
-            id="btn-next"
-            className="nav-btn nav-btn--next"
-            onClick={goNext}
-            disabled={isLast}
-            style={{ background: chapter.accent, boxShadow: `0 4px 14px ${chapter.accent}55` }}
-            aria-label="Next"
-          >
-            {isLastSlideInChapter && !isLastChapter
-              ? `Start ${CHAPTERS[activeChapter + 1].label}`
-              : 'Next'}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
-            </svg>
-          </button>
-        </nav>
-      </main>
+      {/* ── Fullscreen Colour Activity (renders over everything) ────────────── */}
+      {slide.isColourActivity ? (
+        <ColourActivity
+          accent={chapter.accent}
+          onBack={goPrev}
+        />
+      ) : (
+        <>
+          <Header
+            title={chapter.label}
+            progress={progress}
+            onBack={!isFirst ? goPrev : null}
+          />
+          <main className="chapter-page">
+            {/* The main white card with all the text */}
+            <div className="card-track">
+              <div
+                key={cardKey}
+                className="title-card slide-in"
+                style={{ '--accent': chapter.accent }}
+              >
+                <span className="card-badge">{chapter.label}</span>
+                <h1 className="chapter-title">{slide.title}</h1>
+                <div className="title-divider" />
+                {slide.isInteraction ? (
+                  <InteractionSlide
+                    slide={slide}
+                    accent={chapter.accent}
+                    chapterLabel={chapter.label}
+                  />
+                ) : (
+                  <p className="chapter-subtitle">{slide.body}</p>
+                )}
+              </div>
+            </div>
+            {/* ── Slide dots ────────────────────────────────────────────── */}
+            <div className="dots-row" role="tablist" aria-label="Slides">
+              {chapter.slides.map((_, i) => (
+                <button
+                  key={i}
+                  role="tab"
+                  aria-selected={i === activeSlide}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`dot ${i === activeSlide ? 'active' : ''}`}
+                  style={i === activeSlide ? { background: chapter.accent } : {}}
+                  onClick={() => setActiveSlide(i)}
+                />
+              ))}
+            </div>
+            {/* ── Audio button ─────────────────────────────────────────── */}
+            <AudioButton audioSrc={slide.audio} accent={chapter.accent} />
+            {/* ── Prev / Next chapter navigation ───────────────────────── */}
+            <nav className="chapter-nav" aria-label="Chapter navigation">
+              <button
+                id="btn-prev"
+                className="nav-btn nav-btn--prev"
+                onClick={goPrev}
+                disabled={isFirst}
+                aria-label="Previous"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+                Previous
+              </button>
+              <button
+                id="btn-next"
+                className="nav-btn nav-btn--next"
+                onClick={goNext}
+                disabled={isLast}
+                style={{ background: chapter.accent, boxShadow: `0 4px 14px ${chapter.accent}55` }}
+                aria-label="Next"
+              >
+                {isLastSlideInChapter && !isLastChapter
+                  ? `Start ${CHAPTERS[activeChapter + 1].label}`
+                  : 'Next'}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                </svg>
+              </button>
+            </nav>
+          </main>
+        </>
+      )}
     </div>
   )
 }
