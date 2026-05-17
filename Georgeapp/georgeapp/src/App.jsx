@@ -1,16 +1,12 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Header from './Header'
 import { CHAPTERS } from './storyData'
+import { sendAnswerToDashboard } from './supabaseAnswers'
 import './App.css'
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper: flat index across all slides (used for the header progress bar)
 // ─────────────────────────────────────────────────────────────────────────────
-const TOTAL_SLIDES = CHAPTERS.reduce((sum, ch) => sum + ch.slides.length, 0)
-function getGlobalSlideIndex(chapterIdx, slideIdx) {
-  let count = 0
-  for (let i = 0; i < chapterIdx; i++) count += CHAPTERS[i].slides.length
-  return count + slideIdx
-}
 // ─────────────────────────────────────────────────────────────────────────────
 // AudioButton
 // ─────────────────────────────────────────────────────────────────────────────
@@ -83,12 +79,18 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
   }, [slide.id])
   const handleSubmit = () => {
     if (!answer.trim()) return
-    console.log('ANSWER SUBMITTED', {
+    const answerPayload = {
       chapter: chapterLabel,
       slideId: slide.id,
+      questionTitle: slide.title,
       prompt: slide.interactionPrompt,
       answer: answer.trim(),
       submittedAt: new Date().toISOString(),
+    }
+
+    console.log('ANSWER SUBMITTED', answerPayload)
+    void sendAnswerToDashboard(answerPayload).catch(error => {
+      console.warn('Could not save answer to Supabase.', error)
     })
     setSubmitted(true)
   }
@@ -141,6 +143,8 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
 // ColourActivity — fullscreen colouring overlay (covers the whole screen)
 // ─────────────────────────────────────────────────────────────────────────────
 function ColourActivity({ accent, onBack }) {
+  const colourAppUrl = 'colour-app/index.html'
+
   return (
     <div className="colour-fullscreen">
       {/* Top bar with back button */}
@@ -157,7 +161,7 @@ function ColourActivity({ accent, onBack }) {
         </button>
         <span className="colour-topbar-title">🎨 Colour Me In!</span>
         <a
-          href="/colour-app/"
+          href={colourAppUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="colour-open-btn"
@@ -170,7 +174,7 @@ function ColourActivity({ accent, onBack }) {
       </div>
       {/* Fullscreen iframe */}
       <iframe
-        src="/colour-app/"
+        src={colourAppUrl}
         title="Colour Me In – George"
         className="colour-fullscreen-frame"
         allow="downloads"

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "b1c31197-71f7-4f17-a3be-3f3955273f23",
+    "chapter": "Questions",
+    "slideId": "q-s1",
+    "questionTitle": "Question One",
+    "prompt": "How do you think I lost these fingers?",
+    "answer": "Maybe a shark got to them",
+    "submittedAt": "2026-05-17T11:43:37.409Z"
+  },
+  {
+    "id": "6b57f1b4-a43f-4b29-b330-e032b299ff90",
+    "chapter": "Questions",
+    "slideId": "q-s1",
+    "questionTitle": "Question One",
+    "prompt": "How do you think I lost these fingers?",
+    "answer": "maybe because he is very old",
+    "submittedAt": "2026-05-17T11:45:15.400Z"
+  },
+  {
+    "id": "b6026f61-2d89-41e8-82a9-a06f7938ed6b",
+    "chapter": "Questions",
+    "slideId": "q-s2",
+    "questionTitle": "Question Two",
+    "prompt": "How do you think I got this lipstick on my face? The truth is, I have no idea how this ended up here, and neither does the university. I'd bet it was one of those mischievous students at the Bath School of Art!",
+    "answer": "maybe an art student wanted to paint a women",
+    "submittedAt": "2026-05-17T11:45:35.327Z"
+  },
+  {
+    "id": "3a519a23-a22c-44ec-b0e8-7283a1aefb7b",
+    "chapter": "Questions",
+    "slideId": "q-s3",
+    "questionTitle": "Question Three",
+    "prompt": "What inspired Walter to use mannequins like myself as inspiration for his artwork?",
+    "answer": "it looks like a human",
+    "submittedAt": "2026-05-17T11:45:45.399Z"
+  }
+]

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>George Answers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">George's question box</p>
+          <h1>Audience Answers</h1>
+          <p class="intro">A live collection of the thoughts visitors send to George during the story.</p>
+        </div>
+        <div class="status-panel" aria-live="polite">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Connecting...</span>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Answer dashboard controls">
+        <div>
+          <span class="metric" id="answer-count">0</span>
+          <span class="metric-label">answers collected</span>
+        </div>
+        <button class="clear-button" id="clear-button" type="button">Clear answers</button>
+      </section>
+
+      <section class="answers-grid" id="answers-grid" aria-live="polite"></section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
