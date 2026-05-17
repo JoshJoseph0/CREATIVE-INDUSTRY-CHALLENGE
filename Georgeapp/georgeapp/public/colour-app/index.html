@@ -1,13 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blank Vite React App</title>
-    <script type="module" crossorigin src="./assets/index-kZLTAxSr.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DjUQXKrz.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Colour Me In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./colour-editor.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <div class="app-shell">
+      <header class="editor-header">
+        <button class="header-button" id="backButton" type="button" aria-label="Go back">
+          Back
+        </button>
+        <h1>Colour Me In</h1>
+        <button class="header-button header-button--primary" id="downloadButton" type="button">
+          Download
+        </button>
+      </header>
+
+      <main class="editor-layout">
+        <section class="stage-panel" aria-label="Colouring preview">
+          <div class="stage" id="stage">
+            <img class="stage-background" id="backgroundImage" alt="" draggable="false" />
+            <img class="stage-character" id="characterImage" alt="George" draggable="false" />
+          </div>
+        </section>
+
+        <aside class="controls-panel" aria-label="Colouring controls">
+          <section class="control-section">
+            <div class="section-heading">
+              <h2>Position</h2>
+              <button class="small-button" id="resetButton" type="button">Reset</button>
+            </div>
+            <div class="card-row" id="poseChoices"></div>
+          </section>
+
+          <section class="control-section">
+            <h2>Background</h2>
+            <div class="card-row" id="backgroundChoices"></div>
+          </section>
+
+          <section class="control-section">
+            <div class="section-heading">
+              <h2>Size</h2>
+              <span class="size-value" id="sizeValue">80%</span>
+            </div>
+            <input class="size-slider" id="sizeSlider" type="range" min="35" max="125" value="80" />
+          </section>
+
+          <section class="control-section">
+            <h2>Move</h2>
+            <div class="nudge-grid" aria-label="Move selected position">
+              <button class="nudge-button" data-nudge="up" type="button" aria-label="Move up">Up</button>
+              <button class="nudge-button" data-nudge="left" type="button" aria-label="Move left">Left</button>
+              <button class="nudge-button" data-nudge="down" type="button" aria-label="Move down">Down</button>
+              <button class="nudge-button" data-nudge="right" type="button" aria-label="Move right">Right</button>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./colour-editor.js"></script>
   </body>
 </html>
