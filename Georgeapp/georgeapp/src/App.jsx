@@ -143,7 +143,7 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
 // ColourActivity — fullscreen colouring overlay (covers the whole screen)
 // ─────────────────────────────────────────────────────────────────────────────
 function ColourActivity({ accent, onBack }) {
-  const colourAppUrl = 'colour-app/index.html'
+  const colourAppUrl = 'colour-app/index.html?v=2026-05-19-poses'
 
   return (
     <div className="colour-fullscreen">
