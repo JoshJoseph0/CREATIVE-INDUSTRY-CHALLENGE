@@ -177,11 +177,11 @@ body {
 
 /* The paragraph text for the story */
 .chapter-subtitle {
-  font-size: clamp(14px, 4vw, 16px);
-  font-weight: 600;
-  color: #666;
-  line-height: 1.7;
-  max-width: 100%;
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: 700;
+  color: #333;
+  line-height: 1.55;
+  max-width: 560px;
   -webkit-user-select: text;
   user-select: text;
 }
