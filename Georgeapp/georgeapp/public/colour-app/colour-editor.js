@@ -1,8 +1,9 @@
 const poses = [
-  { id: 'calm', label: 'Calm', image: './assets/pos_george_calm-C1Z5phuu.png' },
-  { id: 'standing', label: 'Standing', image: './assets/pos_george_67-ClDrhpQn.png' },
-  { id: 'sat', label: 'Sat', image: './assets/pos_george_sat-wGFu9swZ.png' },
-  { id: 'waving', label: 'Waving', image: './assets/pos_george_waving-BjdTUfY1.png' },
+  { id: 'confident', label: 'Confident', image: './assets/pose-confident.svg' },
+  { id: 'fighting', label: 'Fighting', image: './assets/pose-fighting.svg' },
+  { id: 'sitting-down', label: 'Sitting Down', image: './assets/pose-sitting-down.svg' },
+  { id: 'thinking', label: 'Thinking', image: './assets/pose-thinking.svg' },
+  { id: 'wave', label: 'Wave', image: './assets/pose-wave.svg' },
 ]
 
 const backgrounds = [
