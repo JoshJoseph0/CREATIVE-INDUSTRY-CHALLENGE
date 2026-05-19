@@ -96,7 +96,10 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
   }
   return (
     <div className="interaction-slide">
-      <p className="interaction-prompt">{slide.interactionPrompt}</p>
+      <h2 className="interaction-prompt">{slide.interactionPrompt}</h2>
+      {slide.interactionHelper && (
+        <p className="interaction-helper">{slide.interactionHelper}</p>
+      )}
       {!submitted ? (
         <>
           <textarea
@@ -120,6 +123,7 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
               }, 350) // delay lets iOS keyboard finish animating
             }}
           />
+          <p className="interaction-hint">There are no wrong answers. Use your imagination!</p>
           <button
             id={`submit-${slide.id}`}
             className="interaction-submit"
@@ -127,7 +131,7 @@ function InteractionSlide({ slide, accent, chapterLabel }) {
             onClick={handleSubmit}
             disabled={!answer.trim()}
           >
-            Send to George
+            Tell George
           </button>
         </>
       ) : (

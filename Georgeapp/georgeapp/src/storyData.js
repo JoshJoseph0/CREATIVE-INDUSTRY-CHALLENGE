@@ -107,33 +107,37 @@ export const CHAPTERS = [
     slides: [
       {
         id: 'q-s1',
-        title: 'Question One',
+        title: 'George Has a Question!',
         body: '',
         audio: '/audio/Q1.mp3',
         isInteraction: true,
         interactionPrompt:
           'How do you think I lost these fingers?',
-        interactionPlaceholder: 'Write your answer here…',
+        interactionHelper: 'Think of your own idea about what might have happened.',
+        interactionPlaceholder: 'I think...',
       },
       {
         id: 'q-s2',
-        title: 'Question Two',
+        title: 'What Do You Think?',
         body: '',
         audio: '/audio/Q2.mp3',
         isInteraction: true,
         interactionPrompt:
-          'How do you think I got this lipstick on my face? The truth is, I have no idea how this ended up here, and neither does the university. I\'d bet it was one of those mischievous students at the Bath School of Art!',
-        interactionPlaceholder: 'Write your answer here…',
+          'How do you think I got this lipstick on my face?',
+        interactionHelper:
+          'The truth is, I have no idea how this ended up here, and neither does the university. Maybe it was one of those mischievous students at the Bath School of Art!',
+        interactionPlaceholder: 'My idea is...',
       },
       {
         id: 'q-s3',
-        title: 'Question Three',
+        title: 'Can You Help George?',
         body: '',
         audio: '/audio/Q3.mp3',
         isInteraction: true,
         interactionPrompt:
           'What inspired Walter to use mannequins like myself as inspiration for his artwork?',
-        interactionPlaceholder: 'Write your answer here…',
+        interactionHelper: 'Think about poses, models, and how artists plan their paintings.',
+        interactionPlaceholder: 'I think Walter...',
       },
       {
         id: 'q-s4',
