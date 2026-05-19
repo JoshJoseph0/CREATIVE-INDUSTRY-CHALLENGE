@@ -1,11 +1,10 @@
-const poseAssetVersion = '2026-05-19-white-poses'
+const poseAssetVersion = '2026-05-19-new-george'
 
 const poses = [
-  { id: 'confident', label: 'Confident', image: `./assets/pose-confident.svg?v=${poseAssetVersion}` },
-  { id: 'fighting', label: 'Fighting', image: `./assets/pose-fighting.svg?v=${poseAssetVersion}` },
-  { id: 'sitting-down', label: 'Sitting Down', image: `./assets/pose-sitting-down.svg?v=${poseAssetVersion}` },
-  { id: 'thinking', label: 'Thinking', image: `./assets/pose-thinking.svg?v=${poseAssetVersion}` },
-  { id: 'wave', label: 'Wave', image: `./assets/pose-wave.svg?v=${poseAssetVersion}` },
+  { id: 'wave', label: 'Wave', image: `./assets/george-wave.png?v=${poseAssetVersion}` },
+  { id: 'confident', label: 'Confident', image: `./assets/george-confident.png?v=${poseAssetVersion}` },
+  { id: 'fighting', label: 'Fighting', image: `./assets/george-fighting.png?v=${poseAssetVersion}` },
+  { id: 'sitting', label: 'Sitting', image: `./assets/george-sitting.png?v=${poseAssetVersion}` },
 ]
 
 const backgrounds = [
